@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
+body, html{
+    // background: rgb(0,0,0);
+    // background: linear-gradient(90deg, rgba(0,0,0,1) 31%, rgba(70,70,70,1) 100%);
+    background: #f0f0f0;
+    font-family: 'Nunito', sans-serif;
+    margin: 0 auto;
+    border: none;
+    h1{
+        color: black;
+    }
+
+}
+
+.container{
+    margin: 30px 40px;
+    border: 0;
+
+    .list {
+        width: 100%;
+        max-width: 768px;
+        background-color: #FFF;
+        border: 1px solid #CCC;
+        margin-top: 25px;
+    }
+
+    main{
+        border: 1px solid #ccc;
+        
+        .warning{
+            // background-color: rgba(242, 227, 130, 0.5);
+            color: #856404;
+            background-color: rgba(228, 184, 53, 0.5);
+        }
+        .info{
+            background-color: rgba(145, 242, 130, 0.5);
+            color: #000000;
+            // background-color: rgba(255, 255, 255, 0.5);
+        }
+        .severe{
+            // background-color: rgba(242, 130, 145, 0.5);
+            color: #721c24;
+            background-color: rgba(255, 82, 82, 0.5);   
+            }
+        .pagenumbers button {
+            width: 50px;
+            height: 50px;
+        
+            appearance: none;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        
+            background-color: #44AAEE;
+        
+            margin: 5px;
+            transition: 0.4s;
+        
+            color: #FFF;
+            font-size: 18px;
+            text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .pagenumbers button:hover {
+            background-color: #44EEAA;
+        }
+        
+        .pagenumbers button.active {
+            background-color: #44EEAA;
+            box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
+        }
+    }
+    main .results .item {
+        padding: 15px;
+        border-bottom: 1px solid #CCC;
+    }
+    // main .results .item:last-of-type {
+    //     border-bottom: none;
+    // }
+    // main .results .item:hover {
+    //     background: rgba(0, 0, 0, 0.05);
+    // }
+    main .results .warning:hover {
+        background-color: rgba(242, 227, 130, 0.65);
+    }
+    main .results .info:hover {
+        background-color: rgba(145, 242, 130, 0.65);
+    }
+    main .results .severe:hover {
+        background-color: rgba(242, 130, 145, 0.65);
+    }
+    
+}
+
+
+
+.box{
+ margin-left: 20px;
+//  background: #f0f0f0;
+ padding: 40px;
+}

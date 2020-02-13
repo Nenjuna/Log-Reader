@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
+body, html {
+  background: #f0f0f0;
+  font-family: 'Nunito', sans-serif;
+  margin: 0 auto;
+  border: none;
+}
+
+body h1, html h1 {
+  color: black;
+}
+
+.container {
+  margin: 30px 40px;
+  border: 0;
+}
+
+.container .list {
+  width: 100%;
+  max-width: 768px;
+  background-color: #FFF;
+  border: 1px solid #CCC;
+  margin-top: 25px;
+}
+
+.container main {
+  border: 1px solid #ccc;
+}
+
+.container main .warning {
+  color: #856404;
+  background-color: rgba(228, 184, 53, 0.5);
+}
+
+.container main .info {
+  background-color: rgba(145, 242, 130, 0.5);
+  color: #000000;
+}
+
+.container main .severe {
+  color: #721c24;
+  background-color: rgba(255, 82, 82, 0.5);
+}
+
+.container main .pagenumbers button {
+  width: 50px;
+  height: 50px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: #44AAEE;
+  margin: 5px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  color: #FFF;
+  font-size: 18px;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+}
+
+.container main .pagenumbers button:hover {
+  background-color: #44EEAA;
+}
+
+.container main .pagenumbers button.active {
+  background-color: #44EEAA;
+  -webkit-box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
+          box-shadow: inset 0px 0px 4px rgba(0, 0, 0, 0.2);
+}
+
+.container main .results .item {
+  padding: 15px;
+  border-bottom: 1px solid #CCC;
+}
+
+.container main .results .warning:hover {
+  background-color: rgba(242, 227, 130, 0.65);
+}
+
+.container main .results .info:hover {
+  background-color: rgba(145, 242, 130, 0.65);
+}
+
+.container main .results .severe:hover {
+  background-color: rgba(242, 130, 145, 0.65);
+}
+
+.box {
+  margin-left: 20px;
+  padding: 40px;
+}
+/*# sourceMappingURL=main.css.map */

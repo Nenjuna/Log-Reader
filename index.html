@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
+    <title>Log Reader</title>
+    <link rel="stylesheet" href="./style/main.css">
+  </head>
+  <body>
+    <div class="container">
+    <h1>Log Reader</h1>
+
+    <div class="box">
+      <input type="file" id="file-input" class="hide" multiple="multiple"> <br>
+      <button id="btn">Load</button>
+      <button id="button">Button</button>
+        </div>
+    <main>
+    <div class="results" id="results"></div>
+    <div class="pagenumbers" id="pagenumbers"></div>
+  </main>
+
+    <!-- We are using Node.js <span id="node-version"></span>,
+    Chromium <span id="chrome-version"></span>,
+    and Electron <span id="electron-version"></span>. -->
+
+    <!-- You can also require other files to run in this process -->
+    <script src="./renderer.js"></script>
+  </div>
+  </body>
+</html>
