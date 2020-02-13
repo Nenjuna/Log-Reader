@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             let pattwo = /\[\d{2}\]/
                             let patone = /\[\d{1}\]/
                             var re = new RegExp(pattwo, 'g')
-                            console.log(res[i].match(re))
+                            // console.log(res[i].match(re))
                             let te = res[i].match(re)
                             threadnumber = (te==null) ?  '[00]' : te[0];
                             // console.log(threadnumber)
@@ -75,7 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 let uniqueThreadNumbers = [...new Set(ThreadNumbers)];
-                console.log(uniqueThreadNumbers)
+                // console.log(uniqueThreadNumbers)
 
                 for(i in res){
                     for(j in uniqueThreadNumbers){
@@ -166,6 +166,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     wrapper.appendChild(item_element)
                 }
                 SetupPagination(FinalResults, pagination_element, rows);
+
             }
 
             function SetupPagination (items, wrapper, rows_per_page) {
@@ -188,6 +189,9 @@ window.addEventListener('DOMContentLoaded', () => {
                     }
                     maxRight =  page_count
                 }
+            
+
+
 
                 // for (let i = 1; i < page_count + 1; i++) {
                 for (let i = maxLeft; i <= maxRight; i++) {
@@ -215,9 +219,35 @@ window.addEventListener('DOMContentLoaded', () => {
                     button.classList.add('active');
                     
                 });
+                document.addEventListener('keypress', (e) => {
+                    let keycode = e.keyCode
+                    console.log(e)
+                    if(keycode == 46){
+                        keycode = ""
+                        current_page = current_page +1
+                        displayList(items, list_element, rows, current_page);
+                        console.log(current_page)
+                        button.classList.add('active');
+                    }
+                    if(keycode == 44) {
+                        keycode = ""
+                        current_page = current_page -1
+                        displayList(items, list_element, rows, current_page);
+                        button.classList.add('active');
+                    }
+
+                } , false)
+
+                
+               
                 // console.log(button)
                 return button;
             }
+
+            
+           
+
+           
 
 })
 

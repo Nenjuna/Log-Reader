@@ -94,6 +94,24 @@ body, html{
     main .results .severe:hover {
         background-color: rgba(242, 130, 145, 0.65);
     }
+
+    #btn, #button{
+            // width: 50px;
+           padding: 10px;
+        
+            appearance: none;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background-color: rgba(20,225,95,0.67);
+            margin: 5px;
+            transition: 0.4s;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 15px;
+            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+    }
     
 }
 
