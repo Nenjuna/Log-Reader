@@ -107,8 +107,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 // console.log(FinalResults.length)
                 // console.log(res.length)
                 // console.log(response.results.length)
-                console.log(current_page)
-                getData();
+                // console.log(current_page);
+                // getData();
                 // displayList(FinalResults, list_element,rows,current_page);
            
                 // pagination(FinalResults, current_page, rows)
@@ -160,6 +160,16 @@ window.addEventListener('DOMContentLoaded', () => {
                     readText(file[i])
                     current_page = 1;
                 }
+                
+                document.querySelectorAll('.main').forEach(tabContainer=>{
+
+                    // console.log(tabContainer)
+        
+                    // tabContainer.querySelector('.sidebar .tab-button').click()
+                    tabContainer.querySelectorAll('.sidebar .tab-button')[1].click()
+                    getData();
+                })
+
             
             })
 
@@ -207,12 +217,9 @@ window.addEventListener('DOMContentLoaded', () => {
                 
                 console.log(current_page)                
             }
-          
-})
 
 
 
-window.addEventListener('DOMContentLoaded', ()=>{
     // Setting up Search tags in the search bar
     [].forEach.call(document.getElementsByClassName('tags-input'), function (el) {
         let hiddenInput = document.createElement('input'),
@@ -298,6 +305,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
             return tag;
         }
 
+        // Tabs implementation
         function setUpTabs(){
             document.querySelectorAll('.tab-button').forEach(button => {
                 button.addEventListener('click', ()=>{
@@ -314,12 +322,10 @@ window.addEventListener('DOMContentLoaded', ()=>{
                     })
                     button.classList.add('tab-btn-active')
                     tabToActive.classList.add('con-active')
-
-
-                    console.log(sidebar)
-                    console.log(tabContainer);
-                    console.log(tabVar);
-                    console.log(tabToActive)
+                    // console.log(sidebar)
+                    // console.log(tabContainer);
+                    // console.log(tabVar);
+                    // console.log(tabToActive)
                     
                 })
             })
@@ -332,9 +338,37 @@ window.addEventListener('DOMContentLoaded', ()=>{
             // console.log(tabContainer)
 
             tabContainer.querySelector('.sidebar .tab-button').click()
+            // console.log(tabContainer.querySelectorAll('.sidebar .tab-button'))
         })
 
     });
+          
+})
+
+
+
+window.addEventListener('DOMContentLoaded', ()=>{
+
+const realFileBtn = document.getElementById("file-input");
+const customBtn = document.getElementById("choose-files");
+const customTxt = document.getElementById("custom-text");
+
+customBtn.addEventListener("click", function() {
+  realFileBtn.click();
+});
+
+realFileBtn.addEventListener("change", function() {
+  if (realFileBtn.value) {
+    //   console.log(realFileBtn)
+      customTxt.innerHTML = "File(s) selected"
+    // customTxt.innerHTML = realFileBtn.value.match(
+    //   /[\/\\]([\w\d\s\.\-\(\)]+)$/
+    // )[1];
+  } else {
+    customTxt.innerHTML = "No file chosen, yet.";
+  }
+});
+    
 })
 
 

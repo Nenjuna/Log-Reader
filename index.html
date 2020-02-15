@@ -23,19 +23,22 @@
     <div class="main-content">
       
       <header>  
-        <h1>Log Analyser</h1> <div class="box">
+        <h1><span>Log</span> Analyser</h1> <div class="box">
           <div class="tags-input" data-name="tags-input">
           </div> 
         </div>
     </header>
     <div class="content" data-tab='home'>
       <div class="contentbox">
-        <div class="box">
+        <div class="box-input">
           <input type="file" id="file-input" class="hide" multiple="multiple"> 
-          <label for="file-input">Drop the Logs</label><br>
-          <button id="btn">Load</button>
+          <button id="choose-files">Choose the Files</button>
+          <span id="custom-text" class="custom-button">No file chosen</span>
+          <!-- <label for="file-input">Drop the Logs</label><br> -->
           <!-- <button id="button">Button</button> -->
+          <button id="btn" class="custom-button">Load</button>
             </div>
+            
       </div>
     </div>
       <div class="content" data-tab='all-results'>
