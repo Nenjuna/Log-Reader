@@ -17,6 +17,9 @@ let options = {
 // Main function which starts the log reading process
 window.addEventListener('DOMContentLoaded', () => {
     let list_element = document.getElementById('results') //Display element
+    // Intersection Observer for lazy loading
+    const observer = new IntersectionObserver(handleIntersect, options);
+    observer.observe(document.getElementById('trigger'))
     
     
     //Variables declared for the main process
@@ -35,8 +38,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     window.readText = function(file) {  
         var reader = new TxtReader();
-        const observer = new IntersectionObserver(handleIntersect, options);
-        observer.observe(document.getElementById('trigger'))
+       
         
         reader.loadFile(file)
         .progress(function (progress) {
@@ -146,6 +148,8 @@ window.addEventListener('DOMContentLoaded', () => {
             reader.utf8decoder.decode(new Uint8Array(['a'.charCodeAt(0)])) === 'a'
             }
 
+            
+
             btn.addEventListener("click", ()=>{
                 
                 var file = document.getElementById('file-input').files;
@@ -209,6 +213,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 window.addEventListener('DOMContentLoaded', ()=>{
+    // Setting up Search tags in the search bar
     [].forEach.call(document.getElementsByClassName('tags-input'), function (el) {
         let hiddenInput = document.createElement('input'),
             mainInput = document.createElement('input'),
@@ -291,6 +296,36 @@ window.addEventListener('DOMContentLoaded', ()=>{
         function filterTag (tag) {
             return tag;
         }
+
+        function setUpTabs(){
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', ()=>{
+                    const sidebar = button.parentElement;
+                    const tabContainer = sidebar.parentElement;
+                    const tabVar = button.dataset.forTab;
+                    const tabToActive =  tabContainer.querySelector(`.content[data-tab="${tabVar}"]`)
+
+                    sidebar.querySelectorAll('.tab-button').forEach(button =>{
+                        button.classList.remove('tab-btn-active')
+                    })
+                    tabContainer.querySelectorAll('.content').forEach(tab =>{
+                        tab.classList.remove('con-active')
+                    })
+                    button.classList.add('tab-btn-active')
+                    tabToActive.classList.add('con-active')
+
+
+                    console.log(sidebar)
+                    console.log(tabContainer);
+                    console.log(tabVar);
+                    console.log(tabToActive)
+                    
+                })
+            })
+
+        }
+        setUpTabs();
+
     });
 })
 

@@ -11,25 +11,49 @@
     <link rel="stylesheet" href="./style/main.css">
   </head>
   <body>
-    <div class="container">
-    <h1>Log Reader</h1>
+       <div class="main">
+      <div class="sidebar">
+      <button class="tab-button tab-btn-active" id="all-results" data-for-tab="all-results">All Results</button>
+      <button class="tab-button" id="search-results" data-for-tab="search-results">Search Results</button>
+    </div>
 
-    <div class="box">
+    <div class="main-content">
+      <div class="content con-active" data-tab='all-results'>
+        <div class="contentbox">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa dolores sed, quidem blanditiis illum fugiat sit earum illo nobis commodi, eaque quaerat ad iste consequatur voluptates, quam exercitationem inventore nesciunt necessitatibus laudantium neque accusamus. Quidem omnis quasi delectus incidunt repellendus sapiente, laborum voluptatibus nostrum? Quasi sequi iusto qui ullam illum quas? Repellendus voluptatibus, saepe quam eligendi nostrum delectus ab officia a esse ratione dicta ipsum tempora neque dignissimos veniam voluptates facere quisquam ipsa. Dolor eligendi deserunt earum tempora veniam, velit natus libero at ad. Quo assumenda id sint inventore rerum, optio possimus quibusdam aspernatur soluta, molestias odit accusamus error. Esse.
+        </div>
+        <button id="btn">Load</button>
+        
+      </div>
+      <div class="content" data-tab='search-results'>
+        <div class="contentbox">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa dolores sed, quidem blanditiis illum fugiat sit earum illo nobis commodi, eaque quaerat ad iste consequatur voluptates, quam exercitationem inventore nesciunt necessitatibus laudantium neque accusamus. Quidem omnis quasi delectus incidunt repellendus sapiente, laborum voluptatibus nostrum? Quasi sequi iusto qui ullam illum quas? Repellendus voluptatibus, saepe quam eligendi nostrum delectus ab officia a esse ratione dicta ipsum tempora neque dignissimos veniam voluptates facere quisquam ipsa. Dolor eligendi deserunt earum tempora veniam, velit natus libero at ad. Quo assumenda id sint inventore rerum, optio possimus quibusdam aspernatur soluta, molestias odit accusamus error. Esse.
 
-      <div class="tags-input" data-name="tags-input">
-      
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est obcaecati officia impedit perferendis mollitia perspiciatis vel! Accusantium eveniet natus sed, ipsum suscipit totam delectus, magnam recusandae voluptas sequi assumenda impedit quaerat minus temporibus amet dolorem corrupti! Facilis recusandae modi explicabo esse doloribus nesciunt labore aspernatur repudiandae et, eos magni ipsa!
+        </div>
       </div>
       
     </div>
 
+</div>
+
+
+<div class="container">
+  <h1>Log Reader</h1>
+
+    <div class="box">
+      <div class="tags-input" data-name="tags-input">
+      </div> 
+    </div>
+
     <div class="box">
       <input type="file" id="file-input" class="hide" multiple="multiple"> <br>
-      <button id="btn">Load</button>
+      
       <button id="button">Button</button>
         </div>
     <main>
-    <div class="results" id="results"></div>
-    <div class="pagenumbers" id="pagenumbers"></div>
+      <div class="results" id="results"></div>
+    <!-- <div class="pagenumbers" id="pagenumbers"></div> -->
   </main>
   <div id="trigger">  </div>
     <!-- We are using Node.js <span id="node-version"></span>,
