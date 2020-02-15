@@ -23,8 +23,10 @@ window.addEventListener('DOMContentLoaded', () => {
     
     
     //Variables declared for the main process
-    let searchQuries = ["Exception occured","SEVERE" ,"Exception while getting user credentials"] //Search Queries
-    let ThreadNumbers = [] //Thread numbers
+    // let searchQuries = ["Exception occured","SLA Escalation Started", "MSSQL Kindly use proper column alias"] //Search Queries
+    let searchQuriesUser = document.getElementById('tags-input')
+    let searchQuries = ["Exception occured","SLA Escalation Started", "MSSQL Kindly use proper column alias"]
+    let probClassNames = [] // Probablamatic class
     
     
     let pageWindow = 10;
@@ -39,7 +41,6 @@ window.addEventListener('DOMContentLoaded', () => {
     window.readText = function(file) {  
         var reader = new TxtReader();
        
-        
         reader.loadFile(file)
         .progress(function (progress) {
             // console.log('Loading file progress: ' + progress + '%');
@@ -70,37 +71,44 @@ window.addEventListener('DOMContentLoaded', () => {
                         slide++                  
                     }})
 
-                for(i in res){
-                    for(j in searchQuries){
+                for(j in searchQuries){
+                    for(i in res){
+                        // console.log(i)
                         if(!(res[i].search(searchQuries[j])==-1)){
-                            let threadnumber = ""
-                            let patthree = /\[\d{3}\]/
-                            let pattwo = /\[\d{2}\]/
-                            let patone = /\[\d{1}\]/
-                            var re = new RegExp(pattwo, 'g')
-                            // console.log(res[i].match(re))
-                            let te = res[i].match(re)
-                            threadnumber = (te==null) ?  '[00]' : te[0];
-                            let classSearch = res[i].split('|') //Class finder
+                            let probClass = ""
+                            let classSearch = res[i].split('|') 
+                            // console.log(classSearch)
+                            // var re = new RegExp(pattwo, 'g')
+                            // console.log(res[i].search(classSearch[2]))
+                            // console.log(classSearch[2])
+                            // console.log(res[i])
+                            let temp = res[i].search(classSearch[2])
+                            console.log(typeof(temp))
+                            console.log(!(temp==-1))
+                            probClass = (!(temp==-1)) ? classSearch[2] : "[no.Class.Found]" ;
+                            // console.log(i)
+
+                            // probClass = temp
+                            //Class finder
                             // console.log(classSearch)
                             // console.log(threadnumber)
                             // console.log(threadnumber.length)
                             // console.log(threadnumber.slice(1,threadnumber.length-1))
-                            ThreadNumbers.push(threadnumber.slice(1,threadnumber.length-1))
-                            // console.log(ThreadNumbers)
+                            probClassNames.push(probClass.slice(1,probClass.length-1))
+                            console.log(probClassNames)
                             break
                         }
                     }
                 }
-                let uniqueThreadNumbers = [...new Set(ThreadNumbers)];
-                // console.log(uniqueThreadNumbers)
+                let uniqueprobClassNames = [...new Set(probClassNames)];
+                console.log(uniqueprobClassNames)
 
                 for(i in res){
-                    for(j in uniqueThreadNumbers){
-                        if(!(res[i].search(uniqueThreadNumbers[j])==-1)){
+                    for(j in uniqueprobClassNames){
+                        if(!(res[i].search(uniqueprobClassNames[j])==-1)){
                             FinalResults.push(res[i])
                         }
-                        break
+                        // break
                     }
                 }
 
@@ -226,11 +234,12 @@ window.addEventListener('DOMContentLoaded', () => {
             mainInput = document.createElement('input'),
             searchButton = document.createElement('button'),
             tags = [];
-        
+        // Hidden input to get all values for searching the array
         hiddenInput.setAttribute('type', 'hidden');
         hiddenInput.setAttribute('name', el.getAttribute('data-name'));
         hiddenInput.setAttribute('id', 'tags-input');
-    
+        
+        //Main input function FOR JUST DISPLAY AND GETTING inputs
         mainInput.setAttribute('type', 'text');
         mainInput.setAttribute('placeholder', 'Add Tags...')
         mainInput.classList.add('main-input');
@@ -249,6 +258,7 @@ window.addEventListener('DOMContentLoaded', () => {
             }
         });
     
+        // Keyboard event tracker
         mainInput.addEventListener('keydown', function (e) {
             let keyCode = e.which || e.keyCode;
             if (keyCode === 8 && mainInput.value.length === 0 && tags.length > 0) {
@@ -333,6 +343,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         setUpTabs();
 
+        //Triggering first tab
         document.querySelectorAll('.main').forEach(tabContainer=>{
 
             // console.log(tabContainer)
@@ -347,6 +358,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+// Custom input file and some buttons to begin with
 window.addEventListener('DOMContentLoaded', ()=>{
 
 const realFileBtn = document.getElementById("file-input");
