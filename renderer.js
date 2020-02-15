@@ -8,7 +8,7 @@
 
 // console.log(res)
 
-document.getElementById('button').addEventListener('click', (e)=>{
-    e.preventDefault;
-    window.rendererFunction()
-})
+// document.getElementById('button').addEventListener('click', (e)=>{
+//     e.preventDefault;
+//     window.rendererFunction()
+// })

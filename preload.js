@@ -4,7 +4,7 @@
 let res = [] //temp results
 let FinalResults = [] //Actual results
 let current_page = 1;
-let rows = 20;
+let rows = 40;
 
 // Optios for Lazy loading or Infinite Scroll
 let options = {
@@ -222,6 +222,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         
         hiddenInput.setAttribute('type', 'hidden');
         hiddenInput.setAttribute('name', el.getAttribute('data-name'));
+        hiddenInput.setAttribute('id', 'tags-input');
     
         mainInput.setAttribute('type', 'text');
         mainInput.setAttribute('placeholder', 'Add Tags...')
@@ -326,13 +327,18 @@ window.addEventListener('DOMContentLoaded', ()=>{
         }
         setUpTabs();
 
+        document.querySelectorAll('.main').forEach(tabContainer=>{
+
+            // console.log(tabContainer)
+
+            tabContainer.querySelector('.sidebar .tab-button').click()
+        })
+
     });
 })
 
 
-window.rendererFunction = () => {
-    console.log(FinalResults)
-}
+
 
 // static searchPage(event) {
 //     if (event.target.value.lenght > 0) {
