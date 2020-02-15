@@ -3,26 +3,40 @@
 
 let res = [] //temp results
 let FinalResults = [] //Actual results
+let current_page = 1;
+let rows = 20;
+
+// Optios for Lazy loading or Infinite Scroll
+let options = {
+    root: null,
+    rootMargins: "0px",
+    threshold: 0.5
+  };
 
 
 // Main function which starts the log reading process
 window.addEventListener('DOMContentLoaded', () => {
+    let list_element = document.getElementById('results') //Display element
+    
+    
     //Variables declared for the main process
-    let searchQuries = ["SLA","SEVERE","SYSERR" ,"WARNING"] //Search Queries
+    let searchQuries = ["Exception occured","SEVERE" ,"Exception while getting user credentials"] //Search Queries
     let ThreadNumbers = [] //Thread numbers
     
+    
     let pageWindow = 10;
-    let current_page = 1;
-    let rows = 20;
+   
     //third party API loading the log files into memory
     const TxtReader = require('txt-reader').TxtReader;
 
     var btn = document.getElementById('btn') //Button initiating the process
-    const list_element = document.getElementById('results') //Display element
+    
     const pagination_element = document.getElementById('pagenumbers') //Pagination element
 
     window.readText = function(file) {  
         var reader = new TxtReader();
+        const observer = new IntersectionObserver(handleIntersect, options);
+        observer.observe(document.getElementById('trigger'))
         
         reader.loadFile(file)
         .progress(function (progress) {
@@ -65,6 +79,8 @@ window.addEventListener('DOMContentLoaded', () => {
                             // console.log(res[i].match(re))
                             let te = res[i].match(re)
                             threadnumber = (te==null) ?  '[00]' : te[0];
+                            let classSearch = res[i].split('|') //Class finder
+                            // console.log(classSearch)
                             // console.log(threadnumber)
                             // console.log(threadnumber.length)
                             // console.log(threadnumber.slice(1,threadnumber.length-1))
@@ -89,12 +105,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 // console.log(FinalResults.length)
                 // console.log(res.length)
                 // console.log(response.results.length)
-
-
-                displayList(FinalResults, list_element,rows,current_page);
+                console.log(current_page)
+                getData();
+                // displayList(FinalResults, list_element,rows,current_page);
            
                 // pagination(FinalResults, current_page, rows)
-            
                 
             })
             .catch(function (reason) {
@@ -139,6 +154,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 for(let i = 0; i< file.length; i++){
                     // console.log(file[i])
                     readText(file[i])
+                    current_page = 1;
                 }
             
             })
@@ -148,7 +164,7 @@ window.addEventListener('DOMContentLoaded', () => {
             function displayList (items, wrapper, rows_per_page, page){
                 // console.log(wrapper)
 
-                wrapper.innerHTML = ""
+                // wrapper.innerHTML = ""
                 page--;
 
                 let start = rows_per_page * page;
@@ -159,99 +175,132 @@ window.addEventListener('DOMContentLoaded', () => {
                     let item = paginatedItems[i];
                     let item_element = document.createElement('div')
                     item_element.classList.add('item')
-                    if(item.search('WARNING')>-1) item_element.classList.add('warning')
+                    if(item.search('WARNING')> -1) item_element.classList.add('warning')
                     if(item.search('SEVERE') > -1) item_element.classList.add('severe')
                     if(item.search('INFO') > -1) item_element.classList.add('info')
                     item_element.innerText= item
                     wrapper.appendChild(item_element)
                 }
-                SetupPagination(FinalResults, pagination_element, rows);
-
+                current_page++ 
+                // SetupPagination(FinalResults, pagination_element, rows);
             }
 
-            function SetupPagination (items, wrapper, rows_per_page) {
-                wrapper.innerHTML = "";
-               
-                let page_count = Math.ceil(items.length / rows_per_page);
-                console.log(page_count)
-                var maxLeft = (current_page - Math.floor(pageWindow/ 2))
-                var maxRight = (current_page + Math.floor(pageWindow / 2))
-                if (maxLeft < 1) {
-                    maxLeft = 1
-                    maxRight = pageWindow
-                }
-            
-                if (maxRight >  page_count) {
-                    maxLeft =  page_count - (pageWindow - 1)
-                    
-                    if (maxLeft < 1){
-                        maxLeft = 1
-                    }
-                    maxRight =  page_count
-                }
-            
+   
 
 
-
-                // for (let i = 1; i < page_count + 1; i++) {
-                for (let i = maxLeft; i <= maxRight; i++) {
-                    // console.log(i)
-                    let btn = PaginationButton(i, items);
-                    // console.log(btn)
-                    wrapper.appendChild(btn);
-                }
+            function handleIntersect(entries){
+                if (entries[0].isIntersecting) {
+                    console.log("something is intersecting with the viewport");
+                    getData();
+                  }
             }
-
-            function PaginationButton (page, items) {
-                let button = document.createElement('button');
-                button.innerText = page;
-                if (current_page == page) button.classList.add('active'); 
-
-                button.addEventListener('click', function () {
-                    current_page = page;
-                    // console.log(page)
+            
+            function getData(){
+                let list_element = document.getElementById('results') 
+                // let list_element = document.querySelector("main"); //Display element
+                console.log("fetch some JSON data");
+                displayList(FinalResults, list_element,rows,current_page);
                 
-                    displayList(items, list_element, rows, current_page);
+                console.log(current_page)                
+            }
+          
+})
 
-                    // let current_btn = document.querySelector('.pagenumbers button.active');
-                    // current_btn.classList.remove('active');
 
-                    button.classList.add('active');
-                    
+
+window.addEventListener('DOMContentLoaded', ()=>{
+    [].forEach.call(document.getElementsByClassName('tags-input'), function (el) {
+        let hiddenInput = document.createElement('input'),
+            mainInput = document.createElement('input'),
+            searchButton = document.createElement('button'),
+            tags = [];
+        
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', el.getAttribute('data-name'));
+    
+        mainInput.setAttribute('type', 'text');
+        mainInput.setAttribute('placeholder', 'Add Tags...')
+        mainInput.classList.add('main-input');
+        searchButton.setAttribute('type', 'submit')
+        searchButton.classList.add('search-button')
+        searchButton.innerHTML = '<i class="material-icons">search</i>'
+        mainInput.addEventListener('input', function () {
+            let enteredTags = mainInput.value.split(',');
+            if (enteredTags.length > 1) {
+                enteredTags.forEach(function (t) {
+                    let filteredTag = filterTag(t);
+                    if (filteredTag.length > 0)
+                        addTag(filteredTag);
                 });
-                document.addEventListener('keypress', (e) => {
-                    let keycode = e.keyCode
-                    console.log(e)
-                    if(keycode == 46){
-                        keycode = ""
-                        current_page = current_page +1
-                        displayList(items, list_element, rows, current_page);
-                        console.log(current_page)
-                        button.classList.add('active');
-                    }
-                    if(keycode == 44) {
-                        keycode = ""
-                        current_page = current_page -1
-                        displayList(items, list_element, rows, current_page);
-                        button.classList.add('active');
-                    }
-
-                } , false)
-
-                
-               
-                // console.log(button)
-                return button;
+                mainInput.value = '';
             }
-
-            
-           
-
-           
-
+        });
+    
+        mainInput.addEventListener('keydown', function (e) {
+            let keyCode = e.which || e.keyCode;
+            if (keyCode === 8 && mainInput.value.length === 0 && tags.length > 0) {
+                removeTag(tags.length - 1);
+            }
+        });
+    
+        el.appendChild(mainInput);
+        el.appendChild(hiddenInput);
+        el.appendChild(searchButton)
+        
+       
+        // addTag('hello!');
+    
+        function addTag (text) {
+            let tag = {
+                text: text,
+                element: document.createElement('span'),
+            };
+    
+            tag.element.classList.add('tag');
+            tag.element.textContent = tag.text;
+    
+            let closeBtn = document.createElement('span');
+            closeBtn.classList.add('close');
+            closeBtn.addEventListener('click', function () {
+                removeTag(tags.indexOf(tag));
+            });
+            tag.element.appendChild(closeBtn);
+    
+            tags.push(tag);
+    
+            el.insertBefore(tag.element, mainInput);
+    
+            refreshTags();
+        }
+    
+        function removeTag (index) {
+            let tag = tags[index];
+            tags.splice(index, 1);
+            el.removeChild(tag.element);
+            refreshTags();
+        }
+    
+        function refreshTags () {
+            let tagsList = [];
+            tags.forEach(function (t) {
+                tagsList.push(t.text);
+            });
+            hiddenInput.value = tagsList.join(',');
+        }
+    
+        function filterTag (tag) {
+            return tag;
+        }
+    });
 })
 
 
 window.rendererFunction = () => {
     console.log(FinalResults)
 }
+
+// static searchPage(event) {
+//     if (event.target.value.lenght > 0) {
+//         ipcRenderer.send('search-text', event.target.value);
+//      }
+//     }

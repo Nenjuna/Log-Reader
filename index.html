@@ -6,11 +6,21 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
     <title>Log Reader</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <link rel="stylesheet" href="./style/main.css">
   </head>
   <body>
     <div class="container">
     <h1>Log Reader</h1>
+
+    <div class="box">
+
+      <div class="tags-input" data-name="tags-input">
+      
+      </div>
+      
+    </div>
 
     <div class="box">
       <input type="file" id="file-input" class="hide" multiple="multiple"> <br>
@@ -21,7 +31,7 @@
     <div class="results" id="results"></div>
     <div class="pagenumbers" id="pagenumbers"></div>
   </main>
-
+  <div id="trigger">  </div>
     <!-- We are using Node.js <span id="node-version"></span>,
     Chromium <span id="chrome-version"></span>,
     and Electron <span id="electron-version"></span>. -->

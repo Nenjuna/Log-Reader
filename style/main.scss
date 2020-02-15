@@ -17,6 +17,11 @@ body, html{
 .container{
     margin: 30px 40px;
     border: 0;
+    
+    #trigger{
+        // margin-top: 900px;
+        border-bottom: 1px solid red;
+    }
 
     .list {
         font-family: 'Nunito', sans-serif;
@@ -76,7 +81,7 @@ body, html{
         }
     }
     main .results .item {
-        padding: 15px;
+        padding: 10px;
         border-bottom: 1px solid #CCC;
     }
     // main .results .item:last-of-type {
@@ -121,4 +126,74 @@ body, html{
  margin-left: 20px;
 //  background: #f0f0f0;
  padding: 40px;
+
+ .tags-input {
+     outline: none;
+    //  padding: 4px;
+    border-radius: 5px;
+    //  border-radius: 5px;
+    border: 1px solid #424491;
+    display: inline-flex;
+    
+
+    .search-button{
+        width: 40px;
+        // margin-right: 3px;
+        color: white;
+        outline: none;
+        border: none;
+        background: #424491;
+    }
+
+    .main-input{
+    flex-grow: 1;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    // padding: 0.5em 0.1em;
+    padding: 10px;
+    // padding-right: 0px;
+    // border-radius: 5px;
+
+    }
+
+    .main-input::placeholder{
+        color: #424491;
+        text-decoration: none;
+    }
+
+    .tag {
+        font-size: 85%;
+        padding: 0.5em 0.75em;
+        margin: 0.25em 0.1em;
+        display: inline-block;
+        background-color: #424491;
+        transition: all 0.1s linear;
+        cursor: pointer;
+        color:#fff;
+
+        .close::after {
+            content: '×';
+            font-weight: bold;
+            display: inline-block;
+            transform: scale(1.4);
+            margin-left: 0.75em;
+        }
+
+        .close:hover::after {
+            color: red;
+        }
+        
+        
+    }
+    .tag:hover {
+      
+        background-color: #ddd;
+        color: #424491;
+    }
+    .tags-input::focus{
+        background: white;
+        box-shadow: 0 0 2px #8CC6BA;
+    }
+}
 }
