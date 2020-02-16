@@ -3,8 +3,10 @@
 
 let res = [] //temp results
 let FinalResults = [] //Actual results
+let SearchResults = []
 let current_page = 1;
 let rows = 40;
+//Display element
 
 // Optios for Lazy loading or Infinite Scroll
 let options = {
@@ -16,15 +18,18 @@ let options = {
 
 // Main function which starts the log reading process
 window.addEventListener('DOMContentLoaded', () => {
-    let list_element = document.getElementById('results') //Display element
+    let list_element = document.getElementById('results') 
+    
     // Intersection Observer for lazy loading
     const observer = new IntersectionObserver(handleIntersect, options);
     observer.observe(document.getElementById('trigger'))
     
     
+    
     //Variables declared for the main process
     // let searchQuries = ["Exception occured","SLA Escalation Started", "MSSQL Kindly use proper column alias"] //Search Queries
     let searchQuriesUser = document.getElementById('tags-input')
+
     let searchQuries = ["Exception occured","SLA Escalation Started", "MSSQL Kindly use proper column alias"]
     let probClassNames = [] // Probablamatic class
     
@@ -54,12 +59,12 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     //This function will be executed after the file is completely loaded
     function exectueAfterLoadFileComplete() {
-        reader.getLines(1, 1000000)
+        reader.getLines(1, 1000000000000000000000000000000)
             .progress(function (progress) {
                 // console.log('Getting lines progress: ' + progress + '%');
             })
             .then(function (response) {
-                console.log(response.result.length);
+                // console.log(response.result.length);
                 let temp = response.result;
                 // let pat = /\[\d{2}:\d{2}:\d{2}:\d{3}\]/;
                 let slide = 0;
@@ -83,8 +88,8 @@ window.addEventListener('DOMContentLoaded', () => {
                             // console.log(classSearch[2])
                             // console.log(res[i])
                             let temp = res[i].search(classSearch[2])
-                            console.log(typeof(temp))
-                            console.log(!(temp==-1))
+                            // console.log(typeof(temp))
+                            // console.log(!(temp==-1))
                             probClass = (!(temp==-1)) ? classSearch[2] : "[no.Class.Found]" ;
                             // console.log(i)
 
@@ -95,13 +100,13 @@ window.addEventListener('DOMContentLoaded', () => {
                             // console.log(threadnumber.length)
                             // console.log(threadnumber.slice(1,threadnumber.length-1))
                             probClassNames.push(probClass.slice(1,probClass.length-1))
-                            console.log(probClassNames)
+                            // console.log(probClassNames)
                             break
                         }
                     }
                 }
                 let uniqueprobClassNames = [...new Set(probClassNames)];
-                console.log(uniqueprobClassNames)
+                // console.log(uniqueprobClassNames)
 
                 for(i in res){
                     for(j in uniqueprobClassNames){
@@ -111,6 +116,10 @@ window.addEventListener('DOMContentLoaded', () => {
                         // break
                     }
                 }
+
+                // console.log(FinalResults.length)
+
+
 
                 // console.log(FinalResults.length)
                 // console.log(res.length)
@@ -126,30 +135,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 console.log('Getting lines failed with error: ' + reason);
             });
     
-        reader.iterateLines({
-            eachLine: function (raw, progress, lineNumber) {
-                if (this.contains2018(raw)) {
-                    this.count++;
-                }
-            },
-            scope: {
-                count: 0,
-                contains2018: function(raw) {
-                    return this.decode(raw).indexOf('2018') > -1;
-                }
-            }
-        })
-            .progress(function (progress) {
-                // console.log('Iterating lines progress: ' + progress + '%');
-            })
-            .then(function (response) {
-                // console.log(response.result.count + ' lines contain "2018"');
-            })
-            .catch(function (reason) {
-                // console.log('Iterating lines failed with error: ' + reason);
-            });
-
-    
 
     }
     
@@ -157,18 +142,20 @@ window.addEventListener('DOMContentLoaded', () => {
             }
 
             
-
-            btn.addEventListener("click", ()=>{
+            // Trigger function
+            btn.addEventListener("click", async ()=>{
                 
-                var file = document.getElementById('file-input').files;
-                // console.log("CLick")
-                // console.log(file.length)
-                for(let i = 0; i< file.length; i++){
-                    // console.log(file[i])
-                    readText(file[i])
-                    current_page = 1;
-                }
-                
+                // var file = document.getElementById('file-input').files;
+                // // console.log("CLick")
+                // // console.log(file.length)
+                // for(let i = 0; i< file.length; i++){
+                //     // console.log(file[i])
+                //     await readText(file[i])
+                //     current_page = 1;
+                //     // console.log(FinalResults);
+                    
+                // }
+                console.log(FinalResults.length);
                 document.querySelectorAll('.main').forEach(tabContainer=>{
 
                     // console.log(tabContainer)
@@ -179,7 +166,32 @@ window.addEventListener('DOMContentLoaded', () => {
                 })
 
             
-            })
+            });
+
+            // Auto trigger
+            let files_button = document.getElementById('file-input')
+            files_button.addEventListener("change", function() {
+                if (files_button.value) {
+                  //   console.log(realFileBtn)
+                  let val = files_button.files;
+                  for(let i = 0; i< val.length; i++){
+                    // console.log(val[i])
+                    readText(val[i])
+                    // current_page = 1;
+                    // console.log(FinalResults);
+                    
+                }
+                    // customTxt.innerHTML = "File(s) selected"
+                  // customTxt.innerHTML = realFileBtn.value.match(
+                  //   /[\/\\]([\w\d\s\.\-\(\)]+)$/
+                  // )[1];
+                } else {
+                //   customTxt.innerHTML = "No file chosen, yet.";
+                }
+              });
+
+             
+
 
 
 
@@ -188,6 +200,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 // wrapper.innerHTML = ""
                 page--;
+                console.log(items.length)
 
                 let start = rows_per_page * page;
                 let end = start + rows_per_page;
@@ -203,7 +216,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     item_element.innerText= item
                     wrapper.appendChild(item_element)
                 }
-                current_page++ 
+               
                 // SetupPagination(FinalResults, pagination_element, rows);
             }
 
@@ -217,17 +230,6 @@ window.addEventListener('DOMContentLoaded', () => {
                   }
             }
             
-            function getData(){
-                let list_element = document.getElementById('results') 
-                // let list_element = document.querySelector("main"); //Display element
-                console.log("fetch some JSON data");
-                displayList(FinalResults, list_element,rows,current_page);
-                
-                console.log(current_page)                
-            }
-
-
-
     // Setting up Search tags in the search bar
     [].forEach.call(document.getElementsByClassName('tags-input'), function (el) {
         let hiddenInput = document.createElement('input'),
@@ -244,6 +246,7 @@ window.addEventListener('DOMContentLoaded', () => {
         mainInput.setAttribute('placeholder', 'Add Tags...')
         mainInput.classList.add('main-input');
         searchButton.setAttribute('type', 'submit')
+        searchButton.setAttribute('id', 'searchbutton')
         searchButton.classList.add('search-button')
         searchButton.innerHTML = '<i class="material-icons">search</i>'
         mainInput.addEventListener('input', function () {
@@ -315,6 +318,11 @@ window.addEventListener('DOMContentLoaded', () => {
             return tag;
         }
 
+        let search_button = document.getElementById('searchbutton')
+        search_button.addEventListener('click', ()=>{
+            searchData()
+        })
+
         // Tabs implementation
         function setUpTabs(){
             document.querySelectorAll('.tab-button').forEach(button => {
@@ -353,6 +361,22 @@ window.addEventListener('DOMContentLoaded', () => {
         })
 
     });
+    function getData(){
+        // let list_element = document.getElementById('results') 
+        // let list_element = document.querySelector("main"); //Display element
+        // console.log("fetch some JSON data");
+        displayList(FinalResults, list_element,rows,current_page);
+        current_page++ 
+        
+        // console.log(current_page)                
+    }
+
+    function searchData(){
+        // current_page = 1
+        let search_element = document.getElementById('search-results')
+        console.log(res)
+
+    }
           
 })
 

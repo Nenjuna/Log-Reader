@@ -93,3 +93,27 @@ window.addEventListener('DOMContentLoaded', () => {
         <span class="tag">Some Class <span class="close"></span></span>
         <span class="tag">New Text <span class="close"></span></span>
         <input type="text" id="search-input" class="main-input">  -->
+
+
+        reader.iterateLines({
+            eachLine: function (raw, progress, lineNumber) {
+                if (this.contains2018(raw)) {
+                    this.count++;
+                }
+            },
+            scope: {
+                count: 0,
+                contains2018: function(raw) {
+                    return this.decode(raw).indexOf('2018') > -1;
+                }
+            }
+        })
+            .progress(function (progress) {
+                // console.log('Iterating lines progress: ' + progress + '%');
+            })
+            .then(function (response) {
+                // console.log(response.result.count + ' lines contain "2018"');
+            })
+            .catch(function (reason) {
+                // console.log('Iterating lines failed with error: ' + reason);
+            });

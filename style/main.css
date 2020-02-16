@@ -13,6 +13,8 @@
   display: flex;
   position: relative;
   font-family: 'Nunito', sans-serif;
+  -webkit-transition: all 0.8s ease;
+  transition: all 0.8s ease;
 }
 
 .main header {
@@ -27,7 +29,7 @@
   justify-items: left;
   background-color: #323335;
   color: #fff;
-  min-width: 100%;
+  width: 100%;
   position: relative;
 }
 
@@ -93,6 +95,30 @@
 .main .con-active {
   overflow-wrap: break-word;
   display: block;
+  -webkit-animation: 3s slidefromleft;
+          animation: 3s slidefromleft;
+}
+
+@-webkit-keyframes slidefromleft {
+  0% {
+    opacity: 0.25;
+    margin-top: 800px;
+  }
+  100% {
+    opacity: 1;
+    margin-top: 0px;
+  }
+}
+
+@keyframes slidefromleft {
+  0% {
+    opacity: 0.25;
+    margin-top: 800px;
+  }
+  100% {
+    opacity: 1;
+    margin-top: 0px;
+  }
 }
 
 body, html {
@@ -117,10 +143,6 @@ body .main-content, html .main-content {
   border: 0;
   font-family: 'Nunito', sans-serif;
   z-index: 2;
-}
-
-.container #trigger {
-  border-bottom: 1px solid red;
 }
 
 .container .list {
@@ -308,11 +330,13 @@ body .box-input #custom-text {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  color: #b1362e;
   border: 0;
   outline: 0;
   background: transparent;
   font-family: 'Nunito', sans-serif;
   padding: 10px;
+  font-weight: bold;
 }
 
 .box .tags-input .main-input::-webkit-input-placeholder {
