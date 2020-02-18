@@ -1,9 +1,9 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Nunito&display=swap");
-@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Nunito|Nunito+Sans|Poppins&display=swap");
 * {
   list-style: none;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
 }
 
 .main {
@@ -95,8 +95,8 @@
 .main .con-active {
   overflow-wrap: break-word;
   display: block;
-  -webkit-animation: 3s slidefromleft;
-          animation: 3s slidefromleft;
+  -webkit-animation: 2s slidefromleft;
+          animation: 2s slidefromleft;
 }
 
 @-webkit-keyframes slidefromleft {

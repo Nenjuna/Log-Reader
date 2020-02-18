@@ -106,7 +106,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 let uniqueprobClassNames = [...new Set(probClassNames)];
-                // console.log(uniqueprobClassNames)
+                console.log(uniqueprobClassNames)
 
                 for(i in res){
                     for(j in uniqueprobClassNames){
@@ -373,8 +373,48 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function searchData(){
         // current_page = 1
-        let search_element = document.getElementById('search-results')
-        console.log(res)
+        let search_element = document.getElementById('tags-input')
+        // console.log(res)
+        let search_queries = search_element.value.split(',')
+        console.log(search_queries)
+
+        let found = []
+
+        search_queries.forEach((query)=>{
+        //    found.push(searchItems(query, res))
+            found = found.concat(searchItems(query, res))
+
+            // console.log(searchItems(query, res));
+            
+        })
+
+        console.log(found)
+        
+        return found
+        // searchItems(uniqueprobClassNames, res)
+
+    }
+
+    function searchItems(query, res){
+
+        let found = []
+        res.forEach((res)=> {
+
+            if(!(res.search(query)==-1)){
+                // console.log(res)
+                found.push(res)
+                // FinalResults.push(res[i])
+            }
+
+            
+            // console.log(searchQueries)
+        })
+
+        // console.log(found)
+        // console.log(query);
+        
+
+        return found;
 
     }
           
