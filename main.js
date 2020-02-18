@@ -5,7 +5,7 @@ const path = require('path')
 function createWindow () {
   // Create the browser window.
   BrowserWindow.removeExtension('keyframes')
-  BrowserWindow.removeExtension('keyframes')
+  BrowserWindow.removeDevToolsExtension('keyframes')
   // BrowserWindow.removeDevToolsExtension('C:\\Users\\arumugam-con504\\AppData\\Local\\Google\\Chrome Beta\\User Data\\Default\\Extensions\\dalaiblmpeklkjnpeocmaojcfldmbfck\\0.0.81_0\\')
   const mainWindow = new BrowserWindow({
     width: 800,

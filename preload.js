@@ -6,6 +6,8 @@ let FinalResults = [] //Actual results
 let SearchResults = []
 let current_page = 1;
 let rows = 40;
+let search_page = 1;
+
 //Display element
 
 // Optios for Lazy loading or Infinite Scroll
@@ -19,10 +21,14 @@ let options = {
 // Main function which starts the log reading process
 window.addEventListener('DOMContentLoaded', () => {
     let list_element = document.getElementById('results') 
+    let search_results = document.getElementById('searched-results')
     
-    // Intersection Observer for lazy loading
+    
+    // Intersection Observer for lazy loading in all results
     const observer = new IntersectionObserver(handleIntersect, options);
     observer.observe(document.getElementById('trigger'))
+    const searchObserver = new IntersectionObserver(handleSearchIntersection, options)
+    searchObserver.observe(document.getElementById('search-trigger'))
     
     
     
@@ -162,7 +168,9 @@ window.addEventListener('DOMContentLoaded', () => {
         
                     // tabContainer.querySelector('.sidebar .tab-button').click()
                     tabContainer.querySelectorAll('.sidebar .tab-button')[1].click()
-                    getData();
+                    getData(FinalResults,list_element,rows,current_page);
+                    current_page++ 
+
                 })
 
             
@@ -174,6 +182,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 if (files_button.value) {
                   //   console.log(realFileBtn)
                   let val = files_button.files;
+                  console.log(val)
                   for(let i = 0; i< val.length; i++){
                     // console.log(val[i])
                     readText(val[i])
@@ -200,7 +209,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 // wrapper.innerHTML = ""
                 page--;
-                console.log(items.length)
+                // console.log(items.length)
+                // console.log(wrapper)
 
                 let start = rows_per_page * page;
                 let end = start + rows_per_page;
@@ -226,9 +236,24 @@ window.addEventListener('DOMContentLoaded', () => {
             function handleIntersect(entries){
                 if (entries[0].isIntersecting) {
                     console.log("something is intersecting with the viewport");
-                    getData();
+                    // getData();
+                    getData(FinalResults,list_element,rows,current_page);
+                    current_page++ 
+
                   }
             }
+
+            function handleSearchIntersection(entries){
+
+                if(entries[0].isIntersecting){
+                    console.log('Something is messing the search results page')
+                    getData(SearchResults,search_results,rows,search_page);
+                    search_page++;
+
+                }
+            }
+
+            
             
     // Setting up Search tags in the search bar
     [].forEach.call(document.getElementsByClassName('tags-input'), function (el) {
@@ -318,9 +343,12 @@ window.addEventListener('DOMContentLoaded', () => {
             return tag;
         }
 
-        let search_button = document.getElementById('searchbutton')
+        let search_button = document.getElementById('searchbutton') // Search icon on the header
+        // Adding listener to enable the search and changing the view to the search results
         search_button.addEventListener('click', ()=>{
-            searchData()
+            // SearchResults = []
+            searchData();
+            document.getElementById('search-results').click();
         })
 
         // Tabs implementation
@@ -361,19 +389,24 @@ window.addEventListener('DOMContentLoaded', () => {
         })
 
     });
-    function getData(){
+    function getData(items, element, rows, page){
         // let list_element = document.getElementById('results') 
         // let list_element = document.querySelector("main"); //Display element
         // console.log("fetch some JSON data");
-        displayList(FinalResults, list_element,rows,current_page);
-        current_page++ 
-        
+        displayList(items,element,rows,page)
+        // displayList(FinalResults, list_element,rows,current_page);        
         // console.log(current_page)                
     }
 
     function searchData(){
         // current_page = 1
+
+        SearchResults.length = 0
+        search_results.innerHTML = ""
+        search_page = 0
+
         let search_element = document.getElementById('tags-input')
+        // let search_results = document.getElementById('searched-results')
         // console.log(res)
         let search_queries = search_element.value.split(',')
         console.log(search_queries)
@@ -388,9 +421,18 @@ window.addEventListener('DOMContentLoaded', () => {
             
         })
 
-        console.log(found)
+
+
+        SearchResults = SearchResults.concat(found)
+
+        console.log(SearchResults)
+
+        getData(SearchResults,search_results,rows,search_page);
+        search_page++;
+
+        // console.log(found)
         
-        return found
+        // return found
         // searchItems(uniqueprobClassNames, res)
 
     }
@@ -405,15 +447,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 found.push(res)
                 // FinalResults.push(res[i])
             }
-
-            
-            // console.log(searchQueries)
         })
-
-        // console.log(found)
-        // console.log(query);
-        
-
         return found;
 
     }
